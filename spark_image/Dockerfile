@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y \
 # Install delta-spark python package
 RUN python3.13 -m pip install pyspark==4.0.2 delta-spark==4.0.1
 # Install Jupyter Lab and IPython kernel
-RUN python3.13 -m pip install jupyter jupyterlab ipykernel
+RUN python3.13 -m pip install jupyterlab ipykernel
 
 ADD https://repo1.maven.org/maven2/io/delta/delta-spark_2.13/4.0.1/delta-spark_2.13-4.0.1.jar /opt/spark/jars/
 ADD https://repo1.maven.org/maven2/io/delta/delta-storage/4.0.1/delta-storage-4.0.1.jar /opt/spark/jars/

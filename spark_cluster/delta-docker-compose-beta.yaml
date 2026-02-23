@@ -10,7 +10,7 @@ services:
     ports:
       - "7077:7077"   # Standalone master RPC
       - "8080:8080"   # Master UI
-      - "4040:4040"   # Application UI (optional)
+      - "4040:4040"   # Application UI
       - "18080:18080"   # History server UI
       - "15002:15002"   # Spark Connect server port
 
