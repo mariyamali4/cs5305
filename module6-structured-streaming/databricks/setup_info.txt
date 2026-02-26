@@ -1,0 +1,9 @@
+1. Lakeflow Declarative Pipelines (LDP) is a framework for building data pipelines on Databricks. It provides a high-level API for defining data transformations and orchestrating the execution of those transformations.
+
+https://docs.databricks.com/aws/en/ldp/tutorial-get-started
+https://docs.databricks.com/aws/en/ldp/tutorial-pipelines
+
+
+
+2. Extracredit - Zerobus 
+pip install databricks-zerobus-ingest-sdk
