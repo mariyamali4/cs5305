@@ -1,0 +1,6 @@
+1. Install uv (pthon env/package manager): powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+2. Install python 3.12 (dont use 3.13/3.14 right now): uv python install 3.12
+3. uv venv --python 3.12
+4. uv pip install -r requirements.txt
+1. Install ollama: irm https://ollama.com/install.ps1 | iex
+2. Install required libraries: pip install langchain langchain_community langchain-openai scikit-learn langchain-ollama beautifulsoup4 requests
