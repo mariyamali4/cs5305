@@ -1,4 +1,3 @@
-# Start with official Apache Spark image (non-Hadoop)
 FROM apache/spark:4.0.1-java21
 
 # Define Versions
@@ -52,11 +51,10 @@ RUN /opt/spark/bin/spark-shell \
 
 # Setup directories, permissions, and entrypoint script
 RUN mkdir -p /opt/spark/startup /home/spark && \
-    chown -R spark:spark /opt/spark /home/spark
+    chown -R spark:spark /opt/spark /home/spark && \
+    usermod -d /home/spark spark
 
 COPY ./entrypoint.sh /opt/spark/startup/entrypoint.sh
 RUN chmod +x /opt/spark/startup/entrypoint.sh
-
-EXPOSE 4040 7077 8080-8888 15002
 
 ENTRYPOINT ["/opt/spark/startup/entrypoint.sh"]

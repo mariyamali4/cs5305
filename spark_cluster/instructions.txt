@@ -12,18 +12,5 @@ You can download that data using script from this github repo: https://github.co
 
 
 Further information:
-
 The SPARK_NO_DAEMONIZE variable prevents Spark processes from daemonizing (forking into background processes). 
-In traditional server environments, Spark processes typically fork to the background and return control to the shell. 
-However, in Docker containers, this behavior is problematic.
-
-When a Docker container's main process exits, the container stops. 
-
-If Spark processes daemonize:
-    The entrypoint script starts the Spark process
-    The Spark process immediately forks to the background
-    The original process exits
-    Docker detects the process exit and stops the container
-    The backgrounded Spark process is killed
-    By setting SPARK_NO_DAEMONIZE=true, Spark processes remain in the foreground, keeping the container alive.
 

@@ -78,17 +78,12 @@ services:
       environment:
         - SPARK_NO_DAEMONIZE=true
         - SPARK_MODE=JUPYTER
+        - HOME=/home/spark
+      working_dir: /home/spark
       ports:
         - "8888:8888"   # Jupyter Lab UI
       volumes:
         - ../spark_cluster/spark-home:/home/spark
-        - ../spark_cluster/spark-data:/opt/spark/data
-        - ../spark_cluster/spark-events:/opt/spark/spark-events
-        - ../spark_cluster/spark-conf:/opt/spark/conf
-        - ../spark_cluster/worker-logs:/opt/spark/worker-logs
-        - ../spark_cluster/warehouse:/opt/spark/warehouse
-        - ../spark_cluster/delta-tables:/opt/spark/delta
-        - ../spark_cluster/worker-data:/opt/spark/worker-data
       networks:
         - sparknet
 
