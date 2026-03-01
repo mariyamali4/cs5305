@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Ensure directories have proper permissions for spark user
-mkdir -p /opt/spark/spark-events /opt/spark/worker-logs /opt/spark/worker-data /opt/spark/warehouse
-chown -R spark:spark /opt/spark/spark-events /opt/spark/worker-logs /opt/spark/worker-data /opt/spark/warehouse 2>/dev/null || true
+mkdir -p /opt/spark/spark-events /opt/spark/worker-logs /opt/spark/worker-data /opt/spark/warehouse /opt/spark/delta
+chown -R spark:spark /opt/spark/spark-events /opt/spark/worker-logs /opt/spark/worker-data /opt/spark/warehouse /opt/spark/delta 2>/dev/null || true
+chmod -R u+rwX,g+rwX,o+rX /opt/spark/spark-events /opt/spark/worker-logs /opt/spark/worker-data /opt/spark/warehouse /opt/spark/delta 2>/dev/null || true
 
 # Set environment variables for spark user
 export JAVA_HOME=/opt/java/openjdk
@@ -27,7 +28,7 @@ elif [ "$SPARK_MODE" = "JUPYTER" ]; then
     exec su - spark -c "
             export JAVA_HOME=$JAVA_HOME; export SPARK_HOME=$SPARK_HOME; export HOME=$HOME; export PATH=$PATH; \
             jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root \
-                --IdentityProvider.token='docker' --ServerApp.disable_check_xsrf=True \
+                --IdentityProvider.token='' --ServerApp.disable_check_xsrf=True \
                 --ServerApp.allow_origin='*' --notebook-dir=/home/spark"
 else
     echo "Invalid SPARK_MODE: $SPARK_MODE. Must be MASTER, WORKER, or JUPYTER."

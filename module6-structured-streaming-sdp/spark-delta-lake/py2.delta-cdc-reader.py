@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
+from pyspark.sql.functions import col, window
 from pyspark.sql.types import StructType, StructField, IntegerType, StringType, TimestampType
 import time
 
@@ -25,27 +25,56 @@ schema = StructType([
 # Check if table exists, if not create it first
 try:
     spark.read.format("delta").load(delta_table_path)
-    print("Delta table exists, proceeding with CDC reading...")
-    # Reading CDC changes from Delta table
-    df = spark.readStream \
-        .format("delta") \
-        .option("readChangeData", "true") \
-        .option("startingVersion", 0) \
-        .load(delta_table_path) \
-        .schema(schema)
+except Exception as e:
+    print(f"Delta table not found or unreadable: {e}")
+    print("Please run the writer script first to create the table with CDC enabled.")
+    exit(1)
 
-    # Define query with trigger interval of 2 seconds
-    query = df.writeStream \
+print("Delta table exists, proceeding with CDC reading...")
+
+
+def run_cdc_stream(checkpoint_location):
+    cdc_df = spark.readStream \
+        .format("delta") \
+        .option("readChangeFeed", "true") \
+        .load(delta_table_path)
+
+    windowed_df = cdc_df \
+        .groupBy(
+            window(col("_commit_timestamp"), "10 seconds"),
+            col("_change_type")
+        ) \
+        .count() \
+        .selectExpr(
+            "window.start as window_start",
+            "window.end as window_end",
+            "_change_type as change_type",
+            "count"
+        )
+
+    query = windowed_df.writeStream \
         .format("console") \
-        .option("checkpointLocation", "/tmp/delta-cdc-checkpoint") \
-        .trigger(processingTime="2 seconds") \
+        .outputMode("complete") \
+        .option("checkpointLocation", checkpoint_location) \
+        .trigger(processingTime="10 seconds") \
         .start()
 
-    # Run for 10 seconds
-    time.sleep(10)
+    query.awaitTermination(60)
+    if query.isActive:
+        query.stop()
 
-    # Stop the query
-    query.stop()
+
+try:
+    checkpoint_path = f"/tmp/delta-cdc-checkpoint-{int(time.time())}"
+    try:
+        run_cdc_stream(checkpoint_path)
+    except Exception as first_error:
+        retry_checkpoint = f"/tmp/delta-cdc-checkpoint-retry-{int(time.time())}"
+        print(
+            "Detected checkpoint/offset startup issue. "
+            f"Retrying once with fresh checkpoint: {retry_checkpoint}"
+        )
+        run_cdc_stream(retry_checkpoint)
 except Exception as e:
-    print("Table doesn't exist, exiting. Please run the writer script first to create the table with CDC enabled.")
+    print(f"Error reading Delta table: {e}")
     exit(1)

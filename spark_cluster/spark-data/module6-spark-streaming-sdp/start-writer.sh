@@ -1,1 +1,0 @@
-spark-submit --master spark://localhost:7077 --packages io.delta:delta-spark_2.13:4.0.1 --conf "spark.sql.extensions=io.delta.sql.DeltaSparkSessionExtension" --conf "spark.sql.catalog.spark_catalog=org.apache.spark.sql.delta.catalog.DeltaCatalog" py2.delta-cdc-writer.py
