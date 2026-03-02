@@ -11,3 +11,4 @@
 7. Download models for local testing (windows):
         ollama pull llama3:8b
         ollama pull qwen2.5:7b
+8. uv pip install chromadb

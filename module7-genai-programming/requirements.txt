@@ -2,8 +2,8 @@ langchain
 langchain_community 
 langchain-openai 
 scikit-learn 
-langchain-ollama 
-beautifulsoup4 
+langchain-ollama  
 requests
 ipykernel
+chromadb
 bs4
