@@ -6,14 +6,12 @@ import time
 # Initialize Spark Session
 spark = SparkSession.builder \
     .appName("DeltaCDCReader") \
-    .spark("spark://localhost:7077") \
-    .config("spark.jars.packages", "io.delta:delta-spark_2.13:4.0.1") \
     .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension") \
     .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog") \
     .getOrCreate()
 
 # Path to your Delta table
-delta_table_path = "/opt/spark/delta/cdc_table"
+delta_table_path = "/opt/spark/delta/cdc_writer_table"
 
 # Define schema
 schema = StructType([

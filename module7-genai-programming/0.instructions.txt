@@ -12,3 +12,8 @@
         ollama pull llama3:8b
         ollama pull qwen2.5:7b
 8. uv pip install chromadb
+----------------------------------------
+1. go to langsmith.com and create an account.
+2. Create a new project and get the API key.
+3. Set the API key as an environment variable: export LANGCHAIN_HANDLER=langsmith
+4. Run the code to test the integration with LangSmith.
