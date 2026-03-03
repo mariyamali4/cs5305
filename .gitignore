@@ -49,7 +49,7 @@ coverage.xml
 .local/
 *.out*
 .openai
-
+module7-genai-programming/.env
 # Environment variables and secrets
 .env
 .env.local
