@@ -49,12 +49,8 @@ coverage.xml
 .local/
 *.out*
 .openai
-module7-genai-programming/.env
+.env*
 # Environment variables and secrets
-.env
-.env.local
-.env.production
-.env.staging
 *.key
 *_key*
 *api_key*
