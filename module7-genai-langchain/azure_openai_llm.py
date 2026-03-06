@@ -1,9 +1,25 @@
 import os
 
 from langchain_openai import AzureChatOpenAI, ChatOpenAI
+from langchain_openai.embeddings import AzureOpenAIEmbeddings
 from dotenv import load_dotenv
 
 load_dotenv()
+
+azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+azure_openai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
+azure_openai_api_version = os.getenv("AZURE_OPENAI_API_VERSION")
+azure_openai_embedding_deployment = os.getenv("AZURE_OPENAI_EMBEDDING_DEPLOYMENT")
+
+def create_azure_embedding():    
+    embedding=AzureOpenAIEmbeddings(
+                    azure_endpoint=azure_openai_endpoint,
+                    azure_deployment=azure_openai_embedding_deployment,
+                    openai_api_key=azure_openai_api_key,
+                    openai_api_version=azure_openai_api_version
+    )
+    
+    return embedding
 
 def create_azure_llm(type="chat", api="azure"):
     """
