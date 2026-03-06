@@ -8,3 +8,7 @@ ipykernel
 chromadb
 bs4
 python-dotenv
+ipywidgets
+langgraph-checkpoint-sqlite
+langgraph-checkpoint-postgres
+sounddevice
