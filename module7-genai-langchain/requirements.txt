@@ -13,3 +13,4 @@ langgraph-checkpoint-sqlite
 langgraph-checkpoint-postgres
 tavily
 sounddevice
+pypdf

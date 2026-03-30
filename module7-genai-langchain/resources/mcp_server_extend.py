@@ -1,0 +1,75 @@
+#This file defines a very small MCP server with one tool, one resource, and one default prompt.
+#FastMCP is a Python framework / SDK that makes it easy to build and run Model Context Protocol (MCP) servers and clients
+
+from dotenv import load_dotenv
+from mcp.server.fastmcp import FastMCP
+from tavily import TavilyClient
+from typing import Dict, Any
+from requests import get
+
+load_dotenv()
+tavily_client = TavilyClient()
+
+mcp = FastMCP("mcp_server")
+
+
+
+# Tool for searching the web
+@mcp.tool()
+def search_web(query: str) -> Dict[str, Any]:
+    """Search the web for information"""
+
+    results = tavily_client.search(query)
+
+    return results
+
+
+# Resources - provide access to langchain-ai repo files
+@mcp.resource("github://langchain-ai/langchain-mcp-adapters/main/README.md")
+def github_file():
+    """
+    Resource for accessing langchain-ai/langchain-mcp-adapters/README.md file
+
+    """
+    url = f"https://raw.githubusercontent.com/langchain-ai/langchain-mcp-adapters/main/README.md"
+    try:
+        resp = get(url)
+        return resp.text
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+# Prompt template
+@mcp.prompt()
+def search_prompt():
+    """Analyze data from a langchain-ai repo file with comprehensive insights"""
+    return """
+    You are a helpful assistant that answers user questions about LangChain, LangGraph and LangSmith.
+
+    You can use the following tools/resources to answer user questions:
+    - search_web: Search the web for information
+
+    If the user asks a question that is not related to LangChain, LangGraph or LangSmith, you should say "I'm sorry, I can only answer questions about LangChain, LangGraph and LangSmith."
+
+    You may also ask clarifying questions to the user to better understand their question.
+    """
+
+# Another prompt template
+@mcp.prompt()
+def resource_prompt():
+    """A prompt to search resources only"""
+    return """
+    You are a helpful assistant with access to web search and repository files.
+    
+    Use the available tools to provide accurate and comprehensive answers.
+    - github_file: Access the langchain-ai repo files
+
+    If the user asks a question that is not related to LangChain, LangGraph or LangSmith, you should say "I'm sorry, I can only answer questions about LangChain, LangGraph and LangSmith."
+
+    You may only try the given resources to answer the user's question.
+
+    You may also ask clarifying questions to the user to better understand their question.
+    """
+
+if __name__ == "__main__":
+    mcp.run(transport="stdio")
