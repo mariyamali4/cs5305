@@ -13,8 +13,6 @@ tavily_client = TavilyClient()
 
 mcp = FastMCP("mcp_server")
 
-
-
 # Tool for searching the web
 @mcp.tool()
 def search_web(query: str) -> Dict[str, Any]:

@@ -1,0 +1,1 @@
+npx @modelcontextprotocol/inspector python C:\\git\\cs5305\\module8-mcp\\resources\\mcp_server_2.py

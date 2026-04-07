@@ -16,8 +16,10 @@ import io
 from pathlib import Path
 from pprint import pprint
 
-sys.path.append(str(Path("../module7-genai-langchain").resolve()))
-from azure_openai_llm import create_azure_llm
-
 load_dotenv()
+
+sys.path.append(str(Path("../module7-genai-langchain").resolve()))
+from azure_openai_llm import create_azure_llm, create_azure_embedding
+
+
 print("Environment initializing completed successfully.")
