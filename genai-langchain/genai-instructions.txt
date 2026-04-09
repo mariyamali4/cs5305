@@ -7,7 +7,6 @@ To run the genai related langchain code in this repo, follow these steps:
 3. Create a virtual environment named .venv-langchain with python 3.12: uv venv .venv-langchain --python 3.12
 4. Activate the virtual environment: uv venv .venv-langchain --activate
 5. Install required packages: uv pip install -r requirements.txt
-6. uv pip install chromadb
 ----------------------------------------
 1. go to langsmith.com and create an account.
 2. Create a new project and get the API key.
