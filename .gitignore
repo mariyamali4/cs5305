@@ -18,7 +18,6 @@ python310env/
 home/
 data/
 .ivy2/
-*json*
 *.pyc
 fhv*
 green*
