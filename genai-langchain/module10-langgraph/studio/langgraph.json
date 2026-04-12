@@ -1,7 +1,7 @@
 {
   "graphs": {
     "simple_graph": "./1.simple_graph.py:graph",
-    "tool_calling_graph": "./2.graph_with_toolcall.py:graph",
+    "graph_with_reducers": "./2.graph_with_reducers.py:graph",
     "router": "./3.router.py:graph"
   },
   "env": "./.env",
