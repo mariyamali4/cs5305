@@ -12,7 +12,7 @@ where pip
 where uv
 if pip and uv are not found in the environment:
         python -m ensurepip --upgrade
-        pip install uv
+        python -m pip install uv
 --------------
 5. Install required packages: uv pip install -r requirements.txt
 6. install langgraph cli: uv pip install "langgraph-cli[inmem]
