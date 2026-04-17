@@ -6,24 +6,18 @@ To run the genai related langchain code in this repo, follow these steps:
 2. Install python 3.12 (dont use 3.13/3.14 right now): uv python install 3.12
 3. Create a virtual environment named .venv-langchain with python 3.12: uv venv .venv-langchain --python 3.12
 4. Activate the virtual environment: uv venv .venv-langchain --activate
---------------
-where python
-where pip
-where uv
-if pip and uv are not found in the environment:
-        python -m ensurepip --upgrade
-        pip install uv
---------------
 5. Install required packages: uv pip install -r requirements.txt
-----------------------------------------
-https://docs.langchain.com/oss/python/langgraph/overview
-https://docs.langchain.com/oss/python/langgraph/thinking-in-langgraph
-https://docs.langchain.com/oss/python/langgraph/workflows-agents
-https://docs.langchain.com/oss/python/langgraph/agentic-rag
-https://docs.langchain.com/oss/python/langgraph/application-structure
-
+6. install langgraph cli: uv pip install "langgraph-cli[inmem]
 ----------------------------------------
 Langsmith Studio: https://docs.langchain.com/langsmith/quick-start-studio#local-development-server
+----------------------------------------
+Some good repositories to clone and learn:
+https://github.com/langchain-ai/lca-langgraph-essentials
+https://github.com/langchain-ai/langgraph-101
+https://github.com/vbarda/pandas-rag-langgraph
+https://sumanmichael.github.io/langgraph-cheatsheet/
+https://github.com/langchain-ai/deepagents
+https://huggingface.co/learn/agents-course/unit2/langgraph/introduction
 ----------------------------------------
 1. go to langsmith.com and create an account.
 2. Create a new project and get the API key.
