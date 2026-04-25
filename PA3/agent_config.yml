@@ -1,0 +1,4 @@
+llm_endpoint: "lums-gpt-4.1-mini"
+mcp_servers:
+  - name: databricks_managed_mcp
+    url: "https://dbc-....cloud.databricks.com/api/2.0/mcp/functions/system/ai"
